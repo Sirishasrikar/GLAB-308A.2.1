@@ -108,7 +108,33 @@ class Companion {
 }
 
 
+class Companion extends Character {
+    constructor(name, loyalty = 100, skills = []) {
+        super(name);
+        this.loyalty = loyalty;
+        this.skills = skills;
+    }
 
+    followPlayer() {
+        console.log(`${this.name} is following the player.`);
+    }
+}
+
+
+class Creature extends Character {
+    constructor(name, species) {
+        super(name);
+        this.species = species;
+    }
+}
+
+const adventurer1 = new Adventurer("Adventurer 1", "Fighter");
+const companion1 = new Companion("Companion 1");
+adventurer1.inventory.addItem("Sword");
+
+const adventurer2 = new Adventurer("Adventurer 2", "Healer");
+const companion2 = new Companion("Companion 2");
+adventurer2.inventory.addItem("Healing Potion");
 // const robin = new Adventurer("Robin", "Warrior");
 // const leo = new Companion("Leo", "Cat");
 // const frank = new Companion("Frank", "Flea");
