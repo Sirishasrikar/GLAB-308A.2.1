@@ -20,23 +20,31 @@
 
 //part 2
 class Character {
+    static MAX_HEALTH = 100;
     constructor(name) {
         this.name = name;
-        this.health = 100;
-        this.inventory = [];
+        this.health = Character.MAX_HEALTH;
+        this.inventory = new Inventory();
     }
     roll(mod = 0) {
         const result = Math.floor(Math.random() * 20) + 1 + mod;
         console.log(`${this.name} rolled a ${result}.`);
     }
+    toString() {
+        return `Name: ${this.name}, Health: ${this.health}, ${this.inventory}`;
+    }
 }
 
+
 class Adventurer extends Character {
+    static ROLES = ["Fighter", "Healer", "Wizard"];
+
     constructor(name, role) {
+        if (!Adventurer.ROLES.includes(role)) {
+            throw new Error(`Invalid role. Must be one of: ${Adventurer.ROLES.join(', ')}`);
+        }
         super(name);
-        // Adventurers have specialized roles.
         this.role = role;
-        // Every adventurer starts with a bed and 50 gold coins.
         this.inventory.push("bedroll", "50 gold coins");
         this.level = 1;
         this.extraPoints = 0;
@@ -45,8 +53,8 @@ class Adventurer extends Character {
     // Adventurers have the ability to scout ahead of them.
     scout() {
         console.log(`${this.name} is scouting ahead...`);
-        super.roll();
-    }
+        super.roll()
+    };
     gainExperience(points) {
         this.extraPoints += points;
         console.log(`${this.name} gained ${points} experience points.`);
@@ -54,7 +62,7 @@ class Adventurer extends Character {
         if (this.extraPoints >= 100 * this.level) {
             this.levelUp();
         }
-    }
+    };
     // Method to level up the adventurer
     levelUp() {
         this.level++;
@@ -62,7 +70,6 @@ class Adventurer extends Character {
         // Add additional abilities or attributes upon leveling up
     }
 }
-
 
 class Companion {
     constructor(name, type) {
